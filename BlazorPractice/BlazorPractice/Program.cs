@@ -1,4 +1,5 @@
 using BlazorPractice.Client.Pages;
+using BlazorPractice.Client.States;
 using BlazorPractice.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
+
+// Serverサイドでは利用しないが、エラーを発生させないようにするために登録しておく
+builder.Services.AddScoped<AppState>();
 
 var app = builder.Build();
 

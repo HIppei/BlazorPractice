@@ -1,0 +1,43 @@
+﻿@page "/cascading"
+@rendermode InteractiveWebAssembly
+
+<h3>Parent</h3>
+
+<button @onclick="OnClick">Change</button>:@toggle
+
+<CascadingValue Value=@setting>
+    <Child1 Param1="param1" Param2="param2"/>
+</CascadingValue>
+
+@code {
+    private bool toggle = false;
+
+    private Setting setting = new Setting()
+        {
+            MaxDigit = 5,
+            Color = "Red"
+        };
+
+    private void OnClick()
+    {
+        if (toggle)
+        {
+            setting = new Setting()
+                {
+                    MaxDigit = 5,
+                    Color = "Red"
+                };
+        }
+        else
+        {
+            setting = new Setting()
+                {
+                    MaxDigit = 10,
+                    Color = "Blue"
+                };
+        }
+
+        toggle = !toggle;
+    }
+}
+

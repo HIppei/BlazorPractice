@@ -1,0 +1,14 @@
+﻿<h3>Child1</h3>
+
+<div>@Param1</div>
+<div>@Param2</div>
+
+<Child2 />
+
+@code {
+    [Parameter]
+    public string? Param1 { get; set; }
+
+    [Parameter]
+    public string? Param2 { get; set; }
+}

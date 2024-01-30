@@ -1,0 +1,27 @@
+﻿@using BlazorPractice.Client.States
+@implements IDisposable
+@inject AppState AppState
+
+<h3>Component2</h3>
+<button @onclick="ChangeMessageInAppState">Change</button>
+
+@AppState.Message
+
+@code {
+    protected override void OnInitialized()
+    {
+        // 値を変更したときに発生させるイベントを登録する
+        AppState.OnChange += StateHasChanged;
+    }
+
+    private void ChangeMessageInAppState()
+    {
+        AppState.Message = "Change by Component2";
+    }
+
+    public void Dispose()
+    {
+        // Componentが廃棄されるタイミングで呼び出される
+        AppState.OnChange -= StateHasChanged;
+    }
+}

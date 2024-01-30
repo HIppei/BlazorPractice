@@ -1,0 +1,26 @@
+﻿@page "/"
+@using static BlazorPractice.Client.Pages.Rendering.Child2
+@rendermode InteractiveWebAssembly
+
+<h3>Parent</h3>
+<button @onclick="@(()=> toggle = !toggle)">Click</button>@toggle
+<Child1 Param1="Test" Param2=true />
+<Child2 Param1=@person />
+
+@code {
+    private bool toggle = false;
+
+    private Person person = new Person() { Name = "Test", Age = 12 };
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("Parent First Render");
+        }
+        else
+        {
+            Console.WriteLine("Parent Second Render");
+        }
+    }
+}

@@ -1,0 +1,21 @@
+﻿<h3>Child1</h3>
+
+@code {
+    [Parameter]
+    public string? Param1 { get; set; } 
+
+    [Parameter]
+    public bool Param2 { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if(firstRender)
+        {
+            Console.WriteLine("Child1 First Render");
+        }
+        else
+        {
+            Console.WriteLine("Child1 Second Render");
+        }
+    }
+}

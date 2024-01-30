@@ -1,0 +1,31 @@
+﻿@page "/app-state"
+@rendermode InteractiveWebAssembly
+@using BlazorPractice.Client.States
+@implements IDisposable
+@inject AppState AppState
+
+<h3>Component1</h3>
+<button @onclick="ChangeMessageInAppState">Change</button>
+@AppState.Message
+
+<Component2/>
+
+@code {
+    protected override void OnInitialized()
+    {
+        // 値を変更したときに発生させるイベントを登録する
+        // 他Componentから値を変更したときに、このComponentのStateHasChangedが呼び出されることでRenderingを行う
+        AppState.OnChange += StateHasChanged;
+    }
+
+    private void ChangeMessageInAppState()
+    {
+        AppState.Message = "Change by Component1";
+    }
+
+    public void Dispose()
+    {
+        // Componentが廃棄されるタイミングで呼び出される
+        AppState.OnChange -= StateHasChanged;
+    }
+}

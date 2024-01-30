@@ -1,0 +1,11 @@
+﻿<h3>Child2</h3>
+
+<div>@setting?.MaxDigit</div>
+<div>@setting?.Color</div>
+
+<Child3 Param3="param3" Param4="param4" />
+
+@code {
+    [CascadingParameter]
+    public Setting? setting { get; set; }
+}

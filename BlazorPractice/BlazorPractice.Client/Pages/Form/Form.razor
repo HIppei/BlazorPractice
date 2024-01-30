@@ -1,0 +1,75 @@
+﻿@page "/form"
+@using BlazorPractice.Client.Models
+@using BlazorPractice.Client.Pages.Form.Tab
+@rendermode InteractiveWebAssembly
+@inject IJSRuntime jsRuntime
+
+
+<h3>Form</h3>
+<EditForm EditContext=@editContext OnSubmit=@Submit FormName="Koji">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <TabSelector CanSwitch=@(editContext.Validate)>
+        <TabPage Title="基本情報">
+            <div>
+                <label>
+                    工事名
+                    <InputText @bind-Value="Model!.Name" />
+                    <ValidationMessage For=@(() => Model.Name) />
+                </label>
+            </div>
+            <div>
+                <label>
+                    フリガナ
+                    <InputText @bind-Value="Model!.Furigana" />
+                </label>
+            </div>
+        </TabPage>
+        <TabPage Title="請負情報">
+            <div>
+                <label>
+                    受注日
+                    <InputDate @bind-Value="Model!.OrderDate" />
+                </label>
+            </div>
+        </TabPage>
+        <TabPage Title="対応記録">
+            <div>
+                <label>
+                    対応日
+                    <InputDate @bind-Value="Model!.ImplementationDate" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    メモ
+                    <InputText @bind-Value="Model!.Description" />
+                </label>
+            </div>
+        </TabPage>
+    </TabSelector>
+
+    <br />
+
+    <button type="submit">登 録</button>
+
+</EditForm>
+@code {
+    private EditContext? editContext;
+
+    [SupplyParameterFromForm]
+    private Koji? Model { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        Model ??= new();
+        editContext = new(Model);
+    }
+
+    private void Submit()
+    {
+        if (editContext != null && editContext.Validate())
+            Console.WriteLine("Submit");
+    }
+}
